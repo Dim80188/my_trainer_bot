@@ -24,11 +24,12 @@ class NewOrder(StatesGroup):
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: types.Message):
+    await db.cmd_start_db(message.from_user.id)
     await message.answer(f'{message.from_user.first_name}, добро пожаловать! Это бот для записи тренировок.'
                          f'Пожалуйста, выбери режим работы - Внести данные о новой тренировке или Посмотреть прошлые тренировки',
                          reply_markup=kb.main)
 
-@dp.message_handler(text='Записать данные тренировки')
+@dp.message_handler(text=['Записать данные тренировки', 'Записать еще упражненние'])
 async def add_training(message: types.Message):
     await NewOrder.name.set()
     await message.answer('Выберите упражнение', reply_markup=kb.repetitions_list)
@@ -45,7 +46,7 @@ async def add_repetitions(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['repetitions'] = message.text
     await db.add_exerc(state)
-    await message.answer('Упражненние записано')
+    await message.answer('Упражненние записано', reply_markup=kb.exercises_status)
     await state.finish()
 
 
