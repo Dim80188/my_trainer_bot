@@ -6,6 +6,7 @@ from app import keyboards as kb
 from app import database as db
 from dotenv import load_dotenv
 import os
+from datetime import datetime
 
 storage = MemoryStorage()
 load_dotenv()
@@ -37,7 +38,12 @@ async def add_training(message: types.Message):
 @dp.message_handler(state=NewOrder.name)
 async def add_name(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
-        data['name'] = message.text
+        data['user'] = message.from_user.id
+        data['date'] = datetime.now().date()
+        if message.text == 'Подтягивания':
+            data['name'] = message.text
+        else:
+            message.answer('Вы ввели неверные данные. Пожалуйста, исправьте', reply_markup=kb.repetitions_list)
     await message.answer('Напишите количество повторений')
     await NewOrder.next()
 

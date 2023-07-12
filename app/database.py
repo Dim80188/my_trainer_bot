@@ -10,6 +10,8 @@ async def db_start():
                 "cart_id TEXT)")
     cur.execute("CREATE TABLE IF NOT EXISTS exercises("
                 "e_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "user INTEGER, "
+                "date DATE, "
                 "name TEXT, "
                 "repetitions INTEGER)")
     db.commit()
@@ -22,6 +24,6 @@ async def cmd_start_db(user_id):
 
 async def add_exerc(state):
     async with state.proxy() as data:
-        cur.execute("INSERT INTO exercises (name, repetitions) VALUES (?, ?)",
-                    (data['name'], data['repetitions']))
+        cur.execute("INSERT INTO exercises (user, date, name, repetitions) VALUES (?, ?, ?, ?)",
+                    (data['user'], data['date'], data['name'], data['repetitions']))
         db.commit()
