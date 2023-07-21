@@ -22,8 +22,8 @@ async def cmd_start_db(user_id):
         cur.execute("INSERT INTO accounts (tg_id) VALUES ({key})".format(key=user_id))
         db.commit()
 
-async def add_exerc(state):
-    async with state.proxy() as data:
-        cur.execute("INSERT INTO exercises (user, date, name, repetitions) VALUES (?, ?, ?, ?)",
+async def add_exerc(data):
+
+    cur.execute("INSERT INTO exercises (user, date, name, repetitions) VALUES (?, ?, ?, ?)",
                     (data['user'], data['date'], data['name'], data['repetitions']))
-        db.commit()
+    db.commit()
