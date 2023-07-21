@@ -7,9 +7,9 @@ button_push_ups: KeyboardButton = KeyboardButton(text=LEXICON['push_ups'])
 button_jump: KeyboardButton = KeyboardButton(text=LEXICON['jump'])
 
 repetititons_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
-repetititons_builder.row(button_push_ups, button_push_ups, button_jump, width=2)
+repetititons_builder.row(button_pull_ups, button_push_ups, button_jump, width=2)
 
-repetitions_kb: ReplyKeyboardMarkup = repetititons_builder.as_markup(resize_keyboard=True)
+repetitions_kb: ReplyKeyboardMarkup = repetititons_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
 
 button_yes: KeyboardButton = KeyboardButton(text=LEXICON['yes'])
 rep_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()

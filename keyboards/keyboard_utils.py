@@ -10,12 +10,15 @@ write_show_builder.row(button_show, button_write, width=1)
 
 write_show: ReplyKeyboardMarkup = write_show_builder.as_markup(resize_keyboard=True)
 
-# main = ReplyKeyboardMarkup(resize_keyboard=True)
-# main.add('Записать данные тренировки').add('Вывести данные по тренировке')
-#
-# repetitions_list = ReplyKeyboardMarkup(resize_keyboard=True)
-# repetitions_list.add('Подтягивания').add('Отжимания').add('Прыжки')
-#
+
+# кнопки записать еще упраженние или окончить тренировку
+button_more: KeyboardButton = KeyboardButton(text=LEXICON['more_repet'])
+button_end: KeyboardButton = KeyboardButton(text=LEXICON['end_training'])
+
+more_end_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+more_end_builder.row(button_more, button_end, width=1)
+more_end: ReplyKeyboardMarkup = more_end_builder.as_markup(resize_keyboard=True)
+
 # exercises_status = ReplyKeyboardMarkup(resize_keyboard=True)
 # exercises_status.add('Записать еще упражненние').add('Окончить тренировку')
 
