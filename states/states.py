@@ -7,6 +7,7 @@ class NewOrder(StatesGroup):
     # repeat = State()
 
 class MuscleGroup(StatesGroup):
+    change_muscle = State()
     back = State()
     chest = State()
     shoulders = State()

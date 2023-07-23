@@ -10,6 +10,14 @@ write_show_builder.row(button_show, button_write, width=1)
 
 write_show: ReplyKeyboardMarkup = write_show_builder.as_markup(resize_keyboard=True)
 
+# конпки да и нет
+button_training: KeyboardButton = KeyboardButton(text=LEXICON['training'])
+button_no_training: KeyboardButton = KeyboardButton(text=LEXICON['no_training'])
+training_no_training_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+training_no_training_builder.row(button_training, button_no_training, width=1)
+training_no_training: ReplyKeyboardMarkup = training_no_training_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
+
+
 # кнопки записать еще подход или окончить упражнение
 button_more_approach: KeyboardButton = KeyboardButton(text=LEXICON['more_approach'])
 button_end_repet: KeyboardButton = KeyboardButton(text=LEXICON['end_repet'])

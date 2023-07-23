@@ -3,9 +3,11 @@ LEXICON: dict[str, str] = {
               'список доступных команд - набери /help',
     'start_training': 'Начать тренировку',
     'show_statistic': 'Вывести данные по тренировкам',
+    'training': 'тренировку!',
+    'no_training': 'тренировка не сейчас',
     'repetition': 'внести повторения',
-    'more_approach': 'еще подход',
-    'end_repet': 'закончить упражнение',
+    'more_approach': 'продолжаем',
+    'end_repet': 'нет, заканчиваем',
     'more_repet': 'записать новое упражнение',
     'end_training': 'окончить тренировку'
 }
