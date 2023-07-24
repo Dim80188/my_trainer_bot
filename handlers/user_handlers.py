@@ -35,7 +35,7 @@ async def change_training(message: Message, state: FSMContext):
 
 
 # Этот хэндлер реагирует на выбор начала тренировки
-@router.message(Text(text=[LEXICON['training'], LEXICON['more_approach']]), StateFilter(MuscleGroup.change_muscle))
+@router.message(Text(text=[LEXICON['training'], LEXICON['more_approach']]), StateFilter(MuscleGroup.change_muscle, Approaches.more_repet))
 async def muscle_group_selection(message: Message, state: FSMContext):
     await message.answer('Выберите группу мышц', reply_markup=muscle_group_kb)
     await state.set_state(NewOrder.start_training)
@@ -80,15 +80,16 @@ async def write_approaches(message: Message, state: FSMContext):
     await state.set_state(Approaches.more_repet)
 
 # Хэндлер обрабатывает согласие на новый подход. Переносит в другое состояние
-@router.message(Text(text=LEXICON['more_approach']), StateFilter(Approaches.more_repet))
-async def more_approach(message: Message, state: FSMContext):
-    await state.set_state(MuscleGroup.change_muscle)
+# @router.message(Text(text=LEXICON['more_approach']), StateFilter(Approaches.more_repet))
+# async def more_approach(message: Message, state: FSMContext):
+#     await state.set_state(MuscleGroup.change_muscle)
 
-# Хэндлер обрабатывает отказ от нового подхода. Завершает упражнение. Предлагает продолжить тренировку или завершить
-#
-# Хэндлер обрабатывает продолжение тренировки
-#
-# Хэндлер предлагает окончание тренировки
+# Хэндлер обрабатывает отказ от нового подхода. Завершает тренировку
+@router.message(Text(text=LEXICON['end_repet']), StateFilter(Approaches.more_repet))
+async def end_repet(message: Message, state: FSMContext):
+    await state.clear()
+    await message.answer('Вы закончили тренировку', reply_markup=write_show)
+
 
 
 
@@ -117,7 +118,5 @@ async def more_approach(message: Message, state: FSMContext):
 #     await message.answer('Упражнение записано', reply_markup=more_end) #записать еще упражнение. закончить тренировку
 #     await state.clear()
 
-@router.message(Text(text=LEXICON['end_training']), StateFilter(default_state))
-async def end_training(message: Message):
-    await message.answer('Тренировка окончена. Упражнения записаны', reply_markup=write_show)
+
 
