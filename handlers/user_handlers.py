@@ -3,12 +3,13 @@ from aiogram.filters import Command, CommandStart, Text, StateFilter
 from aiogram.filters.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from database.database import cmd_start_db, add_exerc
 from keyboards.keyboard_utils import write_show, more_end, more_end_repet, training_no_training
 from keyboards.keyboards_repetitions import muscle_group_kb, back_kb, chest_kb
 from lexicon.lexicon_ru import LEXICON, LEXICON_MUSCLE, LEXICON_REPETITIONS
-from states.states import NewOrder, MuscleGroup, Approaches
+from states.states import NewOrder, MuscleGroup, Approaches, Show_statisitc
+from services.simple_calendar import calendar_callback_filter, SimpleCalendar
 from datetime import datetime
 
 router: Router = Router()
@@ -90,33 +91,26 @@ async def end_repet(message: Message, state: FSMContext):
     await state.clear()
     await message.answer('Вы закончили тренировку', reply_markup=write_show)
 
+# Хэндлер обрабатывает команду на просмотр статистики и предлагает клавиатуру с началом периода
+@router.message(Text(text=LEXICON['show_statistic']), StateFilter(default_state))
+async def show_statistic_func(message: Message, state: FSMContext):
+    await message.answer('Вы выбрали просмотр статистики\n\nВыберете начало периода', reply_markup=await SimpleCalendar().start_calendar())
+    await state.set_state(Show_statisitc.st_period)
+
+@router.callback_query(calendar_callback_filter, StateFilter(Show_statisitc.st_period))
+async def start_period_change(callback_query: CallbackQuery, state: FSMContext):
+    selected, date = await SimpleCalendar().process_selection(callback_query)
+    if selected:
+        await callback_query.message.answer(f'You selected {date.strftime("%d/%m/%Y")}')
+        print(date, type(date))
+        # state.update_data(start_period = message.text)
+
+# Хэндлер обрабатывает данные начала периода и предлагает конец периода
+
+# Хэндлер обрабатывает конец периода и выдает данные
 
 
 
-# Этот хэндлер будет срабатывать на команду 'write_training' -
-# отвечать клавиатурой с упражнениями
-# @router.message(Text(text=[LEXICON['write_training'], LEXICON['more_repet']]), StateFilter(default_state))
-# async def add_training(message: Message, state: FSMContext):
-#     await message.answer('Выберите упражнение', reply_markup=repetitions_kb)
-#     await state.set_state(NewOrder.name)
-
-# Этот хэндлер будет записывать в базу данных имя пользователя, дату и упражнение
-# @router.message(Text(text=[LEXICON['pull_ups'], LEXICON['push_ups'], LEXICON['jump']]), StateFilter(NewOrder.name))
-# async def add_name(message: Message, state: FSMContext):
-#     await state.update_data(user=message.from_user.id)
-#     await state.update_data(date=datetime.now().date())
-#     await state.update_data(name=message.text)
-#
-#     await message.answer('Напишите количество повторений')
-#     await state.set_state(NewOrder.repeat)
-#
-# @router.message(StateFilter(NewOrder.repeat))
-# async def add_repetitions(message: Message, state: FSMContext):
-#     await state.update_data(repetitions=message.text)
-#     data = await state.get_data()
-#     await add_exerc(data)
-#     await message.answer('Упражнение записано', reply_markup=more_end) #записать еще упражнение. закончить тренировку
-#     await state.clear()
 
 
 

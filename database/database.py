@@ -1,5 +1,6 @@
 import sqlite3 as sq
 
+
 db = sq.connect('fit.db')
 cur = db.cursor()
 
@@ -27,3 +28,9 @@ async def add_exerc(data):
     cur.execute("INSERT INTO exercises (user, date, name, repetitions) VALUES (?, ?, ?, ?)",
                     (data['user'], data['date'], data['name'], data['repetitions']))
     db.commit()
+
+# async def sql_read(message, start_period, end_period):
+#     for ret in cur.execute('SELECT date, name, repetitions FROM exercises WHERE data BETWEEN ({start_periond}) AND ({end_period})'.format(start_period, end_period)):
+#         print(ret)
+        #await bot.answer(message.from_user.id, )
+

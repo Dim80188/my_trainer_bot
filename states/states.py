@@ -21,3 +21,7 @@ class Approaches(StatesGroup):
     start_repet = State()
     more_repet = State()
     end_repet = State()
+
+class Show_statisitc(StatesGroup):
+    st_period = State()
+    end_period = State()
