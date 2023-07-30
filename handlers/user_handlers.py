@@ -32,11 +32,11 @@ async def process_cancel_command_state(message: Message, state: FSMContext):
 @router.message(Text(text=LEXICON['start_training']), StateFilter(default_state))
 async def change_training(message: Message, state: FSMContext):
     await message.answer('Вы выбрали начать тренировку', reply_markup=training_no_training) # выбор группы мышц или отменить выбор
-    await state.set_state(MuscleGroup.change_muscle)
+    await state.set_state(MuscleGroup.changed_muscle)
 
 
 # Этот хэндлер реагирует на выбор начала тренировки
-@router.message(Text(text=[LEXICON['training'], LEXICON['more_approach']]), StateFilter(MuscleGroup.change_muscle, Approaches.more_repet))
+@router.message(Text(text=[LEXICON['training'], LEXICON['more_approach']]), StateFilter(MuscleGroup.changed_muscle, Approaches.more_repet))
 async def muscle_group_selection(message: Message, state: FSMContext):
     await message.answer('Выберите группу мышц', reply_markup=muscle_group_kb)
     await state.set_state(NewOrder.start_training)
@@ -45,16 +45,18 @@ async def muscle_group_selection(message: Message, state: FSMContext):
 @router.message(Text(text=LEXICON_MUSCLE['back']), StateFilter(NewOrder.start_training))
 async def back_repetitions(message: Message, state: FSMContext):
     await message.answer('Выберите упражнение', reply_markup=back_kb)
-    await state.set_state(MuscleGroup.back)
+    await state.set_state(MuscleGroup.changed_muscle)
 
 @router.message(Text(text=LEXICON_MUSCLE['chest']), StateFilter(NewOrder.start_training))
 async def chest_repetitions(message: Message, state: FSMContext):
     await message.answer('Выберите упражнение', reply_markup=chest_kb)
-    await state.set_state(MuscleGroup.chest)
+    await state.set_state(MuscleGroup.changed_muscle)
 
 @router.message(Text(text=[LEXICON_REPETITIONS['pull_ups'], LEXICON_REPETITIONS['wide_grip_pull_ups'],
                            LEXICON_REPETITIONS['parallel_grip_pull_ups'], LEXICON_REPETITIONS['australian_pull_ups'],
-                           LEXICON['more_approach']]), StateFilter(MuscleGroup.back))
+                           LEXICON_REPETITIONS['push_ups_on'], LEXICON_REPETITIONS['push_ups'],
+                            LEXICON_REPETITIONS['top_push_ups'], LEXICON_REPETITIONS['bench_press'],
+                            LEXICON['more_approach']]), StateFilter(MuscleGroup.changed_muscle))
 async def write_repetition(message: Message, state: FSMContext):
     await state.update_data(user_id=message.from_user.id)
     await state.update_data(date_train=datetime.now().date())
@@ -62,15 +64,7 @@ async def write_repetition(message: Message, state: FSMContext):
     await message.answer('Запишите количество повторений')
     await state.set_state(Approaches.start_repet)
 
-@router.message(Text(text=[LEXICON_REPETITIONS['push_ups_on'], LEXICON_REPETITIONS['push_ups'],
-                           LEXICON_REPETITIONS['top_push_ups'], LEXICON_REPETITIONS['bench_press'],
-                           LEXICON['more_approach']]), StateFilter(MuscleGroup.chest))
-async def write_repetition(message: Message, state: FSMContext):
-    await state.update_data(user_id=message.from_user.id)
-    await state.update_data(date_train=datetime.now().date())
-    await state.update_data(name=message.text)
-    await message.answer('Запишите количество повторений')
-    await state.set_state(Approaches.start_repet)
+
 
 @router.message(StateFilter(Approaches.start_repet))
 async def write_approaches(message: Message, state: FSMContext, request: Request):
@@ -80,10 +74,7 @@ async def write_approaches(message: Message, state: FSMContext, request: Request
     await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet)
     await state.set_state(Approaches.more_repet)
 
-# Хэндлер обрабатывает согласие на новый подход. Переносит в другое состояние
-# @router.message(Text(text=LEXICON['more_approach']), StateFilter(Approaches.more_repet))
-# async def more_approach(message: Message, state: FSMContext):
-#     await state.set_state(MuscleGroup.change_muscle)
+
 
 # Хэндлер обрабатывает отказ от нового подхода. Завершает тренировку
 @router.message(Text(text=LEXICON['end_repet']), StateFilter(Approaches.more_repet))
@@ -121,11 +112,11 @@ async def end_period_change(callback_query: CallbackQuery, state: FSMContext, re
         read = await request.sql_read(period)
         for ret in read:
             await callback_query.message.answer(f'Дата {ret[1]}. Упр. {ret[2]}. Кол {ret[3]}\n')
+        await state.clear()
+        await callback_query.message.answer('Статистика приведена.\n\nВыберите дальнейшие действия', reply_markup=write_show)
 
 
-# Хэндлер обрабатывает данные начала периода и предлагает конец периода
 
-# Хэндлер обрабатывает конец периода и выдает данные
 
 
 

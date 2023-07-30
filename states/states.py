@@ -7,15 +7,8 @@ class NewOrder(StatesGroup):
     # repeat = State()
 
 class MuscleGroup(StatesGroup):
-    change_muscle = State()
-    back = State()
-    chest = State()
-    shoulders = State()
-    biceps = State()
-    triceps = State()
-    press = State()
-    thigh = State()
-    lower_leg = State()
+    changed_muscle = State()
+
 
 class Approaches(StatesGroup):
     start_repet = State()
