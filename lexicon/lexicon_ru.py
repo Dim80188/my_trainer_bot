@@ -47,5 +47,9 @@ LEXICON_REPETITIONS: dict[str, str] = {
     'torso_lift': 'подъем туловища',
     'leg_lift': 'подъем ног',
     'twisting': 'скручивания',
+    'sit_ups': 'приседания',
+    'jumping': 'прыжки',
+    'rise_on_toes': 'подъем на носки',
+
 
 }

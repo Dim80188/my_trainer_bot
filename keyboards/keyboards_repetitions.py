@@ -62,3 +62,16 @@ button_twisting: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['twist
 press_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
 press_builder.row(button_twisting, button_leg_lift, button_torso_lift)
 press_kb: ReplyKeyboardMarkup = press_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
+
+button_sit_ups: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['sit_ups'])
+button_jumping: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['jumping'])
+
+thigh_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+thigh_builder.row(button_jumping, button_sit_ups)
+thigh_kb: ReplyKeyboardMarkup = thigh_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
+
+button_rise_on_toes: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['rise_on_toes'])
+lower_leg_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+lower_leg_builder.row(button_rise_on_toes)
+lower_leg_kb: ReplyKeyboardMarkup = lower_leg_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
+

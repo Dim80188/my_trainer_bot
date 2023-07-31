@@ -6,7 +6,7 @@ from aiogram.fsm.state import default_state
 from aiogram.types import Message, CallbackQuery
 from database.database import Request
 from keyboards.keyboard_utils import write_show, more_end, more_end_repet, training_no_training
-from keyboards.keyboards_repetitions import muscle_group_kb, back_kb, chest_kb, shoulders_kb, biceps_kb, triceps_kb, press_kb
+from keyboards.keyboards_repetitions import muscle_group_kb, back_kb, chest_kb, shoulders_kb, biceps_kb, triceps_kb, press_kb, thigh_kb, lower_leg_kb
 from lexicon.lexicon_ru import LEXICON, LEXICON_MUSCLE, LEXICON_REPETITIONS
 from states.states import NewOrder, MuscleGroup, Approaches, Show_statisitc
 from services.simple_calendar import calendar_callback_filter, SimpleCalendar
@@ -164,6 +164,50 @@ async def warning_not_change(message: Message):
     await message.answer('Пожалуйста, воспользуйтесь кнопками!\n\n'
                          'Если вы хотите прервать ввод данных - '
                          'отправьте команду /cancel', reply_markup=press_kb)
+
+@router.message(Text(text=LEXICON_MUSCLE['thigh']), StateFilter(NewOrder.start_training))
+async def thigh_repetitions(message: Message, state: FSMContext):
+    await message.answer('Выберите упражнение', reply_markup=thigh_kb)
+    await state.set_state(MuscleGroup.thigh)
+
+@router.message(Text(text=[LEXICON_REPETITIONS['sit_ups'], LEXICON_REPETITIONS['jumping'],
+                           LEXICON['more_approach']]), StateFilter(MuscleGroup.thigh))
+async def write_repetitions(message: Message, state: FSMContext):
+    await state.update_data(user_id=message.from_user.id)
+    await state.update_data(date_train=datetime.now().date())
+    await state.update_data(name=message.text)
+    await message.answer('Запишите количество повторений')
+    await state.set_state(Approaches.start_repet)
+
+@router.message(StateFilter(MuscleGroup.thigh))
+async def warning_not_change(message: Message):
+    await message.answer('Пожалуйста, воспользуйтесь кнопками!\n\n'
+                         'Если вы хотите прервать ввод данных - '
+                         'отправьте команду /cancel', reply_markup=thigh_kb)
+
+
+@router.message(Text(text=LEXICON_MUSCLE['lower_leg']), StateFilter(NewOrder.start_training))
+async def thigh_repetitions(message: Message, state: FSMContext):
+    await message.answer('Выберите упражнение', reply_markup=lower_leg_kb)
+    await state.set_state(MuscleGroup.lower_leg)
+
+
+@router.message(Text(text=[LEXICON_REPETITIONS['rise_on_toes'],
+                           LEXICON['more_approach']]), StateFilter(MuscleGroup.lower_leg))
+async def write_repetitions(message: Message, state: FSMContext):
+    await state.update_data(user_id=message.from_user.id)
+    await state.update_data(date_train=datetime.now().date())
+    await state.update_data(name=message.text)
+    await message.answer('Запишите количество повторений')
+    await state.set_state(Approaches.start_repet)
+
+
+@router.message(StateFilter(MuscleGroup.lower_leg))
+async def warning_not_change(message: Message):
+    await message.answer('Пожалуйста, воспользуйтесь кнопками!\n\n'
+                         'Если вы хотите прервать ввод данных - '
+                         'отправьте команду /cancel', reply_markup=lower_leg_kb)
+
 
 @router.message(StateFilter(NewOrder.start_training))
 async def warning_not_change(message: Message):
