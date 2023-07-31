@@ -34,25 +34,31 @@ chest_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
 chest_builder.row(button_push_ups_on, button_push_ups, button_top_push_ups, button_bench_press, width=2)
 chest_kb: ReplyKeyboardMarkup = chest_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
 
-# button_pull_ups: KeyboardButton = KeyboardButton(text=LEXICON['pull_ups'])
-# button_push_ups: KeyboardButton = KeyboardButton(text=LEXICON['push_ups'])
-# button_jump: KeyboardButton = KeyboardButton(text=LEXICON['jump'])
-#
-# repetititons_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
-# repetititons_builder.row(button_pull_ups, button_push_ups, button_jump, width=2)
-#
-# repetitions_kb: ReplyKeyboardMarkup = repetititons_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
-#
-# button_yes: KeyboardButton = KeyboardButton(text=LEXICON['yes'])
-# rep_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
-# rep_builder.row(button_yes)
-# rep_kb: ReplyKeyboardMarkup = rep_builder.as_markup(resize_keyboard=True)
+button_bench_press_standing: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['bench_press_standing'])
+button_bench_press_sitting: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['bench_press_sitting'])
+
+shoulders_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+shoulders_builder.row(button_bench_press_sitting, button_bench_press_standing)
+shoulders_kb: ReplyKeyboardMarkup = shoulders_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
+
+button_reverse_grip_pull_ups: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['reverse_grip_pull_ups'])
+button_curling_arms_for_biceps: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['curling_arms_for_biceps'])
+
+biceps_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+biceps_builder.row(button_curling_arms_for_biceps, button_reverse_grip_pull_ups)
+biceps_kb: ReplyKeyboardMarkup = biceps_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
 
 
+button_push_ups_between_benches: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['push_ups_between_benches'])
 
-# repetitions_list = ReplyKeyboardMarkup(resize_keyboard=True)
-# repetitions_list.add('Подтягивания').add('Отжимания').add('Прыжки')
-#
-# exercises_status = ReplyKeyboardMarkup(resize_keyboard=True)
-# exercises_status.add('Записать еще упражненние').add('Окончить тренировку')
+triceps_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+triceps_builder.row(button_push_ups_between_benches)
+triceps_kb: ReplyKeyboardMarkup = triceps_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)
 
+button_torso_lift: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['torso_lift'])
+button_leg_lift: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['leg_lift'])
+button_twisting: KeyboardButton = KeyboardButton(text=LEXICON_REPETITIONS['twisting'])
+
+press_builder: ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+press_builder.row(button_twisting, button_leg_lift, button_torso_lift)
+press_kb: ReplyKeyboardMarkup = press_builder.as_markup(one_time_keyboard=True, resize_keyboard=True)

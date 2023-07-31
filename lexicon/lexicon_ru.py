@@ -38,6 +38,14 @@ LEXICON_REPETITIONS: dict[str, str] = {
     'push_ups_on': 'отжимания на брусьях',
     'push_ups': 'отжимания',
     'top_push_ups': 'верхние отжимания',
-    'bench_press': 'жим лежа'
+    'bench_press': 'жим лежа',
+    'bench_press_standing': 'жим стоя',
+    'bench_press_sitting': 'жим сидя',
+    'reverse_grip_pull_ups': 'подтягивания обратным хватом',
+    'curling_arms_for_biceps': 'сгибание рук на бицепс',
+    'push_ups_between_benches': 'отжимания между скамьями',
+    'torso_lift': 'подъем туловища',
+    'leg_lift': 'подъем ног',
+    'twisting': 'скручивания',
 
 }

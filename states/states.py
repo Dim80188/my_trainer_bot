@@ -8,6 +8,14 @@ class NewOrder(StatesGroup):
 
 class MuscleGroup(StatesGroup):
     changed_muscle = State()
+    back = State()
+    chest = State()
+    shoulders = State()
+    biceps = State()
+    triceps = State()
+    press = State()
+    thigh = State()
+    lower_leg = State()
 
 
 class Approaches(StatesGroup):
