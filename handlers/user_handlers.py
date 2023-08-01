@@ -1,4 +1,5 @@
 from aiogram import Router
+
 from aiogram.filters import Command, CommandStart, Text, StateFilter
 from aiogram.filters.state import State, StatesGroup
 from aiogram.fsm.context import FSMContext
@@ -219,9 +220,16 @@ async def warning_not_change(message: Message):
 async def write_approaches(message: Message, state: FSMContext, request: Request):
     await state.update_data(repetitions=message.text)
     data = await state.get_data()
-    await request.add_exerc(data)
-    await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet)
-    await state.set_state(Approaches.more_repet)
+    repetit = data['repetitions']
+
+    if repetit.isdigit():
+        await request.add_exerc(data)
+        await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet)
+        await state.set_state(Approaches.more_repet)
+    else:
+        await message.answer('Количество повторений должно быть числом.\n'
+                             'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)
+        await state.set_state(NewOrder.start_training)
 
 
 
@@ -264,7 +272,10 @@ async def end_period_change(callback_query: CallbackQuery, state: FSMContext, re
         await state.update_data(end_period = date.date())
         period = await state.get_data()
 
-        read = await request.sql_read(period)
+        period_id = callback_query.message.chat.id
+
+
+        read = await request.sql_read(period_id, period)
         for ret in read:
             await callback_query.message.answer(f'Дата {ret[1]}. Упр. {ret[2]}. Кол {ret[3]}\n')
         await state.clear()
