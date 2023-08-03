@@ -6,7 +6,7 @@ import logging
 from aiogram.fsm.storage.memory import MemoryStorage
 from config_data.config import Config, load_config
 from keyboards.main_menu import set_main_menu
-from handlers import user_handlers, workout_repetitions_handlers
+from handlers import user_handlers, workout_repetitions_handlers, gym_repetitions_handler
 from middlewares.dbmiddleware import DbSession
 
 
@@ -40,6 +40,7 @@ async def main():
 
     dp.include_router(user_handlers.router)
     dp.include_router(workout_repetitions_handlers.router)
+    dp.include_router(gym_repetitions_handler.router)
 
     await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
 

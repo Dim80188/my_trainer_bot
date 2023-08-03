@@ -6,11 +6,10 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import default_state
 from aiogram.types import Message, CallbackQuery
 from database.database import Request
-from keyboards.keyboard_utils import write_show, more_end, more_end_repet, training_no_training
-from keyboards.keyboards_repetitions import muscle_group_kb
-from keyboards.workout_repetitions import back_kb, chest_kb, shoulders_kb, biceps_kb, triceps_kb, press_kb, thigh_kb, lower_leg_kb
-from lexicon.lexicon_ru import LEXICON, LEXICON_MUSCLE, LEXICON_REPETITIONS
-from states.states import NewOrder, MuscleGroup, Approaches, Show_statisitc
+from keyboards.keyboard_utils import write_show, more_end, more_end_repet_workout, training_no_training, activity_kb
+
+from lexicon.lexicon_ru import LEXICON, LEXICON_MUSCLE, LEXICON_ACTIVITY
+from states.states import NewOrder, MuscleGroup, Approaches, Show_statisitc, Activity
 from services.simple_calendar import calendar_callback_filter, SimpleCalendar
 from datetime import datetime, date
 
@@ -33,37 +32,11 @@ async def process_cancel_command_state(message: Message, state: FSMContext):
 
 @router.message(Text(text=LEXICON['start_training']), StateFilter(default_state))
 async def change_training(message: Message, state: FSMContext):
-    await message.answer('Вы выбрали начать тренировку', reply_markup=training_no_training) # выбор группы мышц или отменить выбор
-    await state.set_state(MuscleGroup.changed_muscle)
-
-
-# Этот хэндлер реагирует на выбор начала тренировки
-@router.message(Text(text=[LEXICON['training'], LEXICON['more_approach']]), StateFilter(MuscleGroup.changed_muscle, Approaches.more_repet))
-async def muscle_group_selection(message: Message, state: FSMContext):
-    await message.answer('Выберите группу мышц', reply_markup=muscle_group_kb)
-    await state.set_state(NewOrder.start_training)
-
-# этот хэндлер реагирует на выбор спины. Отвечает клавиатурой с упражнениями
-
-@router.message(StateFilter(Approaches.start_repet))
-async def write_approaches(message: Message, state: FSMContext, request: Request):
-    await state.update_data(repetitions=message.text)
-    data = await state.get_data()
-    repetit = data['repetitions']
-
-    if repetit.isdigit():
-        await request.add_exerc(data)
-        await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet)
-        await state.set_state(Approaches.more_repet)
-    else:
-        await message.answer('Количество повторений должно быть числом.\n'
-                             'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)
-        await state.set_state(NewOrder.start_training)
-
-
+    await message.answer('Вы выбрали начать тренировку. Выберите активность', reply_markup=activity_kb) # выбор группы мышц или отменить выбор
+    await state.set_state(Activity.activity_change)
 
 # Хэндлер обрабатывает отказ от нового подхода. Завершает тренировку
-@router.message(Text(text=LEXICON['end_repet']), StateFilter(Approaches.more_repet))
+@router.message(Text(text=LEXICON['end_repet']), StateFilter(Approaches.more_repet_workout, Approaches.more_repet_gym))
 async def end_repet(message: Message, state: FSMContext):
     await state.clear()
     await message.answer('Вы закончили тренировку', reply_markup=write_show)
