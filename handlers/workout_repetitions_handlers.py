@@ -3,7 +3,7 @@ from aiogram.filters import Command, CommandStart, Text, StateFilter
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 from keyboards.keyboard_utils import write_show, more_end, more_end_repet_workout, training_no_training
-from keyboards.keyboards_repetitions import muscle_group_kb, back_kb_workout, chest_kb_workout, shoulders_kb_workout, biceps_kb_workout, triceps_kb_workout, press_kb, thigh_kb_workout, lower_leg_kb_workout
+from keyboards.keyboards_repetitions import muscle_group_kb, back_kb_workout, chest_kb_workout, shoulders_kb_workout, biceps_kb_workout, triceps_kb_workout, press_kb_workout, thigh_kb_workout, lower_leg_kb_workout
 
 from lexicon.lexicon_ru import LEXICON, LEXICON_MUSCLE, LEXICON_REPETITIONS_PRESS, LEXICON_REPETITIONS_THIGH, LEXICON_REPETITIONS_TRICEPS, LEXICON_REPETITIONS_BACK, LEXICON_REPETITIONS_BICEPS, LEXICON_REPETITIONS_CHEST, LEXICON_REPETITIONS_SHOULDERS, LEXICON_REPETITIONS_lOWER_LEG, LEXICON_ACTIVITY
 from states.states import NewOrder, MuscleGroup, Approaches, Activity, Change_muscle
@@ -127,7 +127,7 @@ async def warning_not_change(message: Message):
 
 @router.message(Text(text=LEXICON_MUSCLE['press']), StateFilter(Change_muscle.change_muscle_workout))
 async def press_repetitions(message: Message, state: FSMContext):
-    await message.answer('Выберите упражнение', reply_markup=press_kb)
+    await message.answer('Выберите упражнение', reply_markup=press_kb_workout)
     await state.set_state(MuscleGroup.press)
 
 @router.message(Text(text=[LEXICON_REPETITIONS_PRESS['torso_lift'],
@@ -144,7 +144,7 @@ async def write_repetition(message: Message, state: FSMContext):
 async def warning_not_change(message: Message):
     await message.answer('Пожалуйста, воспользуйтесь кнопками!\n\n'
                          'Если вы хотите прервать ввод данных - '
-                         'отправьте команду /cancel', reply_markup=press_kb)
+                         'отправьте команду /cancel', reply_markup=press_kb_workout)
 
 @router.message(Text(text=LEXICON_MUSCLE['thigh']), StateFilter(Change_muscle.change_muscle_workout))
 async def thigh_repetitions(message: Message, state: FSMContext):
