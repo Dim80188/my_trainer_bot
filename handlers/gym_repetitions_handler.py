@@ -209,20 +209,54 @@ async def warning_not_change(message: Message):
                          'Если вы хотите прервать ввод данных - '
                          'отправьте команду /cancel', reply_markup=lower_leg_kb_gym)
 
+
 @router.message(StateFilter(Approaches.start_repet_gym))
-async def write_approaches(message: Message, state: FSMContext, request: Request):
+async def write_approaches(message: Message, state: FSMContext):
     await state.update_data(repetitions=message.text)
     data = await state.get_data()
     repetit = data['repetitions']
-
     if repetit.isdigit():
+        await message.answer('Запишите вес')
+        await state.set_state(Approaches.start_weight_gym)
+    else:
+        await message.answer('Количество повторений должно быть числом.\n'
+                                  'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)
+        await state.set_state(Change_muscle.change_muscle_gym)
+
+@router.message(StateFilter(Approaches.start_weight_gym))
+async def write_weight(message: Message, state: FSMContext, request: Request):
+    weight = message.text
+    if ',' in weight:
+        weight_in_base = weight.replace(',', '.')
+    else:
+        weight_in_base = weight
+    weight_1 = weight_in_base.replace('.', '')
+    if weight_1.isdigit():
+        await state.update_data(weight=weight_in_base)
+        data = await state.get_data()
         await request.add_exerc(data)
         await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet_gym)
         await state.set_state(Approaches.more_repet_gym)
     else:
-        await message.answer('Количество повторений должно быть числом.\n'
-                             'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)
-        await state.set_state(Change_muscle.change_muscle_gym)
+         await message.answer('Вес должен быть числом.\n'
+                              'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)
+         await state.set_state(Change_muscle.change_muscle_gym)
+
+
+# @router.message(StateFilter(Approaches.start_repet_gym))
+# async def write_approaches(message: Message, state: FSMContext, request: Request):
+#     await state.update_data(repetitions=message.text)
+#     data = await state.get_data()
+#     repetit = data['repetitions']
+#
+#     if repetit.isdigit():
+#         await request.add_exerc(data)
+#         await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet_gym)
+#         await state.set_state(Approaches.more_repet_gym)
+#     else:
+#         await message.answer('Количество повторений должно быть числом.\n'
+#                              'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)
+#         await state.set_state(Change_muscle.change_muscle_gym)
 
 
 

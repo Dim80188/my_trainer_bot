@@ -34,10 +34,8 @@ class Request:
 
     async def add_exerc(self, data):
 
-        # query = ("INSERT INTO exercises (user, name, repetitions) VALUES ($1, $2, $3)",
-        #                 data['user'], data['name'], data['repetitions'])
-
-        await self.connector.execute('''INSERT INTO exercises (user_id, date_train, name, repetitions) VALUES ($1, $2, $3, $4)''', data['user_id'], data['date_train'], data['name'], int(data['repetitions']))
+        await self.connector.execute('''INSERT INTO exercises (user_id, date_train, name, repetitions, weight) VALUES ($1, $2, $3, $4, $5)''',
+                                     data['user_id'], data['date_train'], data['name'], int(data['repetitions']), float(data['weight']))
 
     async def sql_read(self, period_id, period):
         sql_id = period_id

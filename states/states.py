@@ -36,6 +36,7 @@ class MuscleGroup(StatesGroup):
 class Approaches(StatesGroup):
     start_repet_workout = State()
     start_repet_gym = State()
+    start_weight_gym = State()
     more_repet_workout = State()
     more_repet_gym = State()
     end_repet = State()
