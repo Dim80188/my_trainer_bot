@@ -14,13 +14,13 @@ class TgBot:
 
 @dataclass
 class Config:
-    tg_bot: TgBot
+    tb_bot: TgBot
     db: DatabaseConfig
 
 def load_config(path: str | None = None) -> Config:
     env = Env()
     env.read_env(path)
-    return Config(tg_bot=TgBot(token=env('BOT_TOKEN')),
+    return Config(tb_bot=TgBot(token=env('BOT_TOKEN')),
                   db=DatabaseConfig(database=env('DATABASE'),
                                     db_host=env('DB_HOST'),
                                     db_user=env('DB_USER'),

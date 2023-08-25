@@ -13,17 +13,17 @@ LEXICON: dict[str, str] = {
     'end_training': 'окончить тренировку'
 }
 
+LEXICON_ACTIVITY: dict[str, str] = {
+    'aerobic': 'аэробная',
+    'workout': 'воркаут',
+    'gym': 'тренажерный зал',
+}
+
 
 LEXICON_COMMANDS: dict[str, str] = {
     '/start': 'запустить бота',
     '/help': 'получить справку о работе бота',
     '/cancel': 'прервать работу бота'
-}
-
-LEXICON_ACTIVITY: dict[str, str] = {
-    'aerobic': 'аэробная',
-    'workout': 'воркаут',
-    'gym': 'тренажерный зал',
 }
 
 LEXICON_MUSCLE: dict[str, str] = {
@@ -107,7 +107,14 @@ LEXICON_REPETITIONS_THIGH: dict[str, str] = {
     'leg_extension': 'разгибание ног',
     'leg_curl': 'сгибание ног',
 }
-LEXICON_REPETITIONS_lOWER_LEG: dict[str, str] = {
+LEXICON_REPETITIONS_LOWER_LEG: dict[str, str] = {
     'rise_on_toes': 'подъем на носки',
     'lifting_on_socks_sitting': 'подъем на носи сидя',
+}
+
+LEXICON_AEROBIC: dict[str, str] = {
+    'run': 'бег',
+    'a_ride_on_the_bicycle': 'езда на велосипеде',
+    'swimming': 'плавание',
+
 }

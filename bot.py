@@ -6,7 +6,7 @@ import logging
 from aiogram.fsm.storage.memory import MemoryStorage
 from config_data.config import Config, load_config
 from keyboards.main_menu import set_main_menu
-from handlers import user_handlers, workout_repetitions_handlers, gym_repetitions_handler
+from handlers import user_handlers, workout_repetitinos_handlers, gym_repetitions_handlers
 from middlewares.dbmiddleware import DbSession
 
 
@@ -21,7 +21,7 @@ async def create_pool():
 async def main():
     logging.basicConfig(
         level=logging.INFO,
-        format='%(filename)s:%(lineno)d #%(levelname)-8s '
+        format='%(filename)s:%(lineno)d #%(levelname)-8s'
                '[%(asctime)s] - %(name)s - %(message)s'
     )
 
@@ -29,20 +29,21 @@ async def main():
     config: Config = load_config()
     storage: MemoryStorage = MemoryStorage()
 
-    bot: Bot = Bot(token=config.tg_bot.token,
+    bot: Bot = Bot(token=config.tb_bot.token,
                    parse_mode='HTML')
     pool_connect = await create_pool()
     dp: Dispatcher = Dispatcher(storage=storage)
     dp.update.middleware.register(DbSession(pool_connect))
 
     await set_main_menu(bot)
-    # await db_start()
+
+
 
     dp.include_router(user_handlers.router)
-    dp.include_router(workout_repetitions_handlers.router)
-    dp.include_router(gym_repetitions_handler.router)
+    dp.include_router(workout_repetitinos_handlers.router)
+    dp.include_router(gym_repetitions_handlers.router)
 
-    await dp.start_polling(bot, allowed_updates=dp.resolve_used_update_types())
+    await dp.start_polling(bot)
 
 if __name__ == '__main__':
     asyncio.run(main())
