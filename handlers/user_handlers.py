@@ -63,11 +63,11 @@ async def end_period_change(callback_query: CallbackQuery, state: FSMContext, re
         period_id = callback_query.from_user.id
         read = await request.sql_read(period_id, period)
         for ret in read:
-            if ret[4] == 0.0:
-                await callback_query.message.answer(f'Дата {ret[1]}. Упр. {ret[2]}. Кол {ret[3]}.\n')
+            if ret[5] == 0.0:
+                await callback_query.message.answer(f'Дата {ret[2]}. Упр. {ret[3]}. Кол {ret[4]}.\n')
             else:
-                weight_for_read = float(ret[4])
-                await callback_query.message.answer(f'Дата {ret[1]}. Упр. {ret[2]}. Кол {ret[3]}. Вес {round(weight_for_read, 2)}\n')
+                weight_for_read = float(ret[5])
+                await callback_query.message.answer(f'Дата {ret[2]}. Упр. {ret[3]}. Кол {ret[4]}. Вес {round(weight_for_read, 2)}\n')
         await state.clear()
         await callback_query.message.answer('Статистика приведена.\n\nВыберите дальнейшие действия', reply_markup=write_show_kb)
 
