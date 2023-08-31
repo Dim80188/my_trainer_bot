@@ -79,7 +79,7 @@ async def triceps_repetitions(callback: CallbackQuery, state: FSMContext):
     await callback.message.answer(text='Выберите уражнение', reply_markup=triceps_kb_workout)
     await state.set_state(Training.change_exercises)
 
-@router.callback_query(Text(text=['push_ups_between_benches']), StateFilter(Training.change_exercises))
+@router.callback_query(Text(text=['push_ups_between_benches', 'narrow_grip_push-ups']), StateFilter(Training.change_exercises))
 async def write_repetition(callback: CallbackQuery, state: FSMContext):
     await state.update_data(user_id=callback.from_user.id)
     await state.update_data(date_train=datetime.now().date())

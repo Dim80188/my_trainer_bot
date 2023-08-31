@@ -22,7 +22,7 @@ async def main():
     logging.basicConfig(
         level=logging.INFO,
         format='%(filename)s:%(lineno)d #%(levelname)-8s'
-               '[%(asctime)s] - %(name)s - %(message)s'
+                '[%(asctime)s] - %(name)s - %(message)s'
     )
 
     logger.info('Starting bot')
@@ -30,11 +30,10 @@ async def main():
     storage: MemoryStorage = MemoryStorage()
 
     bot: Bot = Bot(token=config.tb_bot.token,
-                   parse_mode='HTML')
+                       parse_mode='HTML')
     pool_connect = await create_pool()
     dp: Dispatcher = Dispatcher(storage=storage)
     dp.update.middleware.register(DbSession(pool_connect))
-
     await set_main_menu(bot)
 
 
@@ -43,7 +42,11 @@ async def main():
     dp.include_router(workout_repetitinos_handlers.router)
     dp.include_router(gym_repetitions_handlers.router)
 
-    await dp.start_polling(bot)
+    await bot.delete_webhook(drop_pending_updates=True)
+    try:
+        await dp.start_polling(bot, polling_timeout=40, allowed_updates=dp.resolve_used_update_types())
+    finally:
+        await bot.session.close()
 
 if __name__ == '__main__':
     asyncio.run(main())

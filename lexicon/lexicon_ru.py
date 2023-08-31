@@ -85,6 +85,7 @@ LEXICON_REPETITIONS_BICEPS: dict[str, str] = {
 }
 LEXICON_REPETITIONS_TRICEPS: dict[str, str] = {
     'push_ups_between_benches': 'отжимания между скамьями',
+    'narrow_grip_push-ups': 'отжимания узким хватом',
     'french_bench_press': 'французский жим со штангой лежа',
     'standing_french_bench_press': 'французский жим со штангой стоя',
     'dumbbell_french_press': 'французский жим с гантелью',

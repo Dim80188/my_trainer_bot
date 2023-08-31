@@ -156,6 +156,7 @@ biceps_builders_gym.row(button_reverse_grip_pull_ups, button_curling_arms_for_bi
 biceps_kb_gym: InlineKeyboardMarkup = biceps_builders_gym.as_markup()
 
 button_push_ups_between_benches: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_TRICEPS['push_ups_between_benches'], callback_data='push_ups_between_benches')
+button_narrow_grip_push_ups: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_TRICEPS['narrow_grip_push-ups'], callback_data='narrow_grip_push-ups')
 button_french_bench_press: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_TRICEPS['french_bench_press'], callback_data='french_bench_press')
 button_standing_french_bench_press: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_TRICEPS['standing_french_bench_press'], callback_data='standing_french_bench_press')
 button_dumbbell_french_press: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_TRICEPS['dumbbell_french_press'], callback_data='dumbbell_french_press')
@@ -166,7 +167,7 @@ button_extension_of_arms_on_the_block_with_one_hand: InlineKeyboardButton = Inli
 button_concentrated_extension: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_TRICEPS['concentrated_extension'], callback_data='concentrated_extension')
 
 triceps_builders_workout: InlineKeyboardBuilder = InlineKeyboardBuilder()
-triceps_builders_workout.row(button_push_ups_between_benches)
+triceps_builders_workout.row(button_push_ups_between_benches, button_narrow_grip_push_ups, width=1)
 triceps_kb_workout: InlineKeyboardMarkup = triceps_builders_workout.as_markup()
 
 triceps_builders_gym: InlineKeyboardBuilder = InlineKeyboardBuilder()
