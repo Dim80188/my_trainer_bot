@@ -14,3 +14,7 @@ class Training_gym(StatesGroup):
 class Show_statistic(StatesGroup):
     start_period = State()
     end_period = State()
+
+class Delete_data(StatesGroup):
+    change_date = State()
+    change_data = State()

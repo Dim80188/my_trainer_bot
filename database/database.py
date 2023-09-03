@@ -16,6 +16,15 @@ class Request:
                                          sql_id, sql_start, sql_end)
         return ret
 
+    async def sql_read_one_day(self, period_id, period):
+        sql_id = period_id
+        sql_date = period['day_deletion_data']
+        ret = await self.connector.fetch(f"SELECT * FROM exercises WHERE user_id = $1 AND date_train = $2",
+                                         sql_id, sql_date)
+        return ret
 
+    async def sql_delete_command(self, id):
+        id_1 = id
+        await self.connector.execute('DELETE FROM exercises WHERE id = $1', id_1)
 
 

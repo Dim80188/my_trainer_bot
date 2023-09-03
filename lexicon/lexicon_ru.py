@@ -23,7 +23,8 @@ LEXICON_ACTIVITY: dict[str, str] = {
 LEXICON_COMMANDS: dict[str, str] = {
     '/start': 'запустить бота',
     '/help': 'получить справку о работе бота',
-    '/cancel': 'прервать работу бота'
+    '/cancel': 'прервать работу бота',
+    '/delete': 'удалить запись',
 }
 
 LEXICON_MUSCLE: dict[str, str] = {
