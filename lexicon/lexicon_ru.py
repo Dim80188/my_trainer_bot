@@ -14,7 +14,7 @@ LEXICON: dict[str, str] = {
 }
 
 LEXICON_ACTIVITY: dict[str, str] = {
-    'aerobic': 'аэробная',
+    'weight_lifting': 'гиревой спорт',
     'workout': 'воркаут',
     'gym': 'тренажерный зал',
 }
@@ -120,3 +120,47 @@ LEXICON_AEROBIC: dict[str, str] = {
     'swimming': 'плавание',
 
 }
+
+LEXICON_WEIGHT_LIFTING_REPETIT: dict[str, str] = {
+    'push_with_two_hands': 'толчок двумя руками',
+    'push_with_one_hand': 'толчок одной рукой',
+    'chest_push_with_both_hands': 'толчок от груди двумя руками',
+    'chest_thrust_with_one_hand': 'толчок от груди одной рукой',
+    'two_hand_press': 'жим двумя руками',
+    'one_hand_press': 'жим одной рукой',
+    'chest_press_with_two_hands': 'жим от груди двумя руками',
+    'chest_press_with_one_hand': 'жим от груди одной рукой',
+    'schwung': 'швунг',
+    'two_handed_jerk': 'рывок двумя руками',
+    'jerk_with_one_hand': 'рывок одной рукой',
+    'chest_lift': 'подъем на грудь',
+    'sit_ups': 'приседания',
+    'swing_kettlebell_forward': 'мах гирей вперед',
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

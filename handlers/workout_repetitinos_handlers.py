@@ -138,6 +138,7 @@ async def write_approaches(message: Message, state: FSMContext, request: Request
     if repetit.isdigit():
         await request.add_exerc(data)
         await message.answer('Упражнение записано. Продолжаем?', reply_markup=more_end_repet_workout)
+        await state.clear()
     else:
         await message.answer('Количество повторений должно быть числом.\n'
                              'Пожалуйста, введите данные заново', reply_markup=muscle_group_kb)

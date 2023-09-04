@@ -1,5 +1,7 @@
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from lexicon.lexicon_ru import LEXICON_MUSCLE, LEXICON_REPETITIONS_BACK, LEXICON_REPETITIONS_CHEST, LEXICON_REPETITIONS_SHOULDERS, LEXICON_REPETITIONS_BICEPS, LEXICON_REPETITIONS_TRICEPS, LEXICON_REPETITIONS_PRESS, LEXICON_REPETITIONS_LOWER_LEG, LEXICON_REPETITIONS_THIGH
+from lexicon.lexicon_ru import (LEXICON_MUSCLE, LEXICON_REPETITIONS_BACK, LEXICON_REPETITIONS_CHEST, LEXICON_REPETITIONS_SHOULDERS,
+                                LEXICON_REPETITIONS_BICEPS, LEXICON_REPETITIONS_TRICEPS, LEXICON_REPETITIONS_PRESS,
+                                LEXICON_REPETITIONS_LOWER_LEG, LEXICON_REPETITIONS_THIGH, LEXICON_WEIGHT_LIFTING_REPETIT)
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 button_back: InlineKeyboardButton = InlineKeyboardButton(
@@ -92,7 +94,7 @@ back_kb_workout: InlineKeyboardMarkup = back_builder_workout.as_markup()
 back_builder_gym: InlineKeyboardBuilder = InlineKeyboardBuilder()
 back_builder_gym.row(button_pull_ups, button_wide_grip_pull_ups, button_parallel_grip_pull_ups, button_australian_pull_ups,
                      button_curved_bar_pull_ups, button_bent_over_row, button_bent_over_dumbbell_row, button_upper_block_pull,
-                     button_lower_block_pull, button_deadlift, button_deadlift_st, button_sumo_deadlift, button_shrugs, button_hyperextension, width=2)
+                     button_lower_block_pull, button_deadlift, button_deadlift_st, button_sumo_deadlift, button_shrugs, button_hyperextension, width=1)
 back_kb_gym: InlineKeyboardMarkup = back_builder_gym.as_markup()
 
 
@@ -111,7 +113,7 @@ chest_kb_workout: InlineKeyboardMarkup = chest_builder_workout.as_markup()
 chest_builder_gym: InlineKeyboardBuilder = InlineKeyboardBuilder()
 chest_builder_gym.row(button_push_ups_on, button_bench_press, button_incline_bench_press,
                       button_dumbbell_laying, button_head_up_dumbbell_raises,
-                      button_mixing_hands_on_the_simulator, width=2)
+                      button_mixing_hands_on_the_simulator, width=1)
 chest_kb_gym: InlineKeyboardMarkup = chest_builder_gym.as_markup()
 
 
@@ -128,7 +130,7 @@ shoulders_kb_workout: InlineKeyboardMarkup = shoulders_builders_workout.as_marku
 
 shoulders_builders_gym: InlineKeyboardBuilder = InlineKeyboardBuilder()
 shoulders_builders_gym.row(button_bench_press_standing, button_bench_press_sitting, button_chin_pull, button_swing_forward,
-                           button_swing_to_the_side, button_tilt_swing, width=2)
+                           button_swing_to_the_side, button_tilt_swing, width=1)
 shoulders_kb_gym: InlineKeyboardMarkup = shoulders_builders_gym.as_markup()
 
 button_reverse_grip_pull_ups: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_BICEPS['reverse_grip_pull_ups'], callback_data='reverse_grip_pull_ups')
@@ -202,7 +204,7 @@ thigh_builder_workout.row(button_sit_ups, button_squats_on_one_leg, button_jumpi
 thigh_kb_workout: InlineKeyboardMarkup = thigh_builder_workout.as_markup()
 
 thigh_builder_gym: InlineKeyboardBuilder = InlineKeyboardBuilder()
-thigh_builder_gym.row(button_sit_ups, button_leg_press, button_leg_extension, button_leg_curl, width=2)
+thigh_builder_gym.row(button_sit_ups, button_leg_press, button_leg_extension, button_leg_curl, width=1)
 thigh_kb_gym: InlineKeyboardMarkup = thigh_builder_gym.as_markup()
 
 button_rise_on_toes: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_REPETITIONS_LOWER_LEG['rise_on_toes'], callback_data='rise_on_toes')
@@ -215,6 +217,41 @@ lower_leg_kb_workout: InlineKeyboardMarkup = lower_leg_builder_workout.as_markup
 lower_leg_builder_gym: InlineKeyboardBuilder = InlineKeyboardBuilder()
 lower_leg_builder_gym.row(button_rise_on_toes, button_lifting_on_socks_sitting, width=1)
 lower_leg_kb_gym: InlineKeyboardMarkup = lower_leg_builder_gym.as_markup()
+
+button_push_with_two_hands: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['push_with_two_hands'], callback_data='push_with_two_hands')
+button_push_with_one_hand: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['push_with_one_hand'], callback_data='push_with_one_hand')
+button_chest_push_with_both_hands: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['chest_push_with_both_hands'], callback_data='chest_push_with_both_hands')
+button_chest_thrust_with_one_hand: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['chest_thrust_with_one_hand'], callback_data='chest_thrust_with_one_hand')
+button_two_hand_press: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['two_hand_press'], callback_data='two_hand_press')
+button_one_hand_press: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['one_hand_press'], callback_data='one_hand_press')
+button_chest_press_with_two_hands: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['chest_press_with_two_hands'], callback_data='chest_press_with_two_hands')
+button_chest_press_with_one_hand: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['chest_press_with_one_hand'], callback_data='chest_press_with_one_hand')
+button_schwung: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['schwung'], callback_data='schwung')
+button_two_handed_jerk: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['two_handed_jerk'], callback_data='two_handed_jerk')
+button_jerk_with_one_hand: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['jerk_with_one_hand'], callback_data='jerk_with_one_hand')
+button_chest_lift: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['chest_lift'], callback_data='chest_lift')
+button_sit_ups: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['sit_ups'], callback_data='sit_ups')
+button_swing_kettlebell_forward: InlineKeyboardButton = InlineKeyboardButton(text=LEXICON_WEIGHT_LIFTING_REPETIT['swing_kettlebell_forward'], callback_data='swing_kettlebell_forward')
+
+weight_lifting_builder: InlineKeyboardBuilder = InlineKeyboardBuilder()
+weight_lifting_builder.row(button_push_with_two_hands, button_push_with_one_hand, button_chest_push_with_both_hands, button_chest_thrust_with_one_hand,
+                           button_two_hand_press, button_one_hand_press, button_chest_press_with_two_hands, button_chest_press_with_one_hand,
+                           button_schwung, button_two_handed_jerk, button_jerk_with_one_hand, button_chest_lift, button_sit_ups, button_swing_kettlebell_forward, width=1)
+weight_lifting_kb: InlineKeyboardMarkup = weight_lifting_builder.as_markup()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

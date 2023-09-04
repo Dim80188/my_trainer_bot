@@ -6,7 +6,7 @@ import logging
 from aiogram.fsm.storage.memory import MemoryStorage
 from config_data.config import Config, load_config
 from keyboards.main_menu import set_main_menu
-from handlers import user_handlers, workout_repetitinos_handlers, gym_repetitions_handlers
+from handlers import user_handlers, workout_repetitinos_handlers, gym_repetitions_handlers, weight_lifting_handlers
 from middlewares.dbmiddleware import DbSession
 
 
@@ -41,6 +41,7 @@ async def main():
     dp.include_router(user_handlers.router)
     dp.include_router(workout_repetitinos_handlers.router)
     dp.include_router(gym_repetitions_handlers.router)
+    dp.include_router(weight_lifting_handlers.router)
 
     await bot.delete_webhook(drop_pending_updates=True)
     try:
