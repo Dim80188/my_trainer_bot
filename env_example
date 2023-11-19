@@ -1,0 +1,12 @@
+# Rename this file to .env
+# Commented options are optional, feel free to
+# uncomment them if needed
+
+# Get your bot token from https://t.me/botfather
+BOT_TOKEN=123456789:abcdefghijklmnopqrstuvwxyz
+
+#Enter your details to connect to the database
+DATABASE=database_name
+DB_HOST=your hos
+DB_USER=db_user
+DB_PASSWORD=db_pass

@@ -95,6 +95,7 @@ async def end_period_change(callback_query: CallbackQuery, state: FSMContext, re
         period = await state.get_data()
         period_id = callback_query.from_user.id
         read = await request.sql_read(period_id, period)
+
         for ret in read:
             if ret[5] == 0.0:
                 await callback_query.message.answer(f'Дата {ret[2]}. Упр. {ret[3]}. Кол {ret[4]}.\n')

@@ -4,6 +4,10 @@ class Request:
     def __init__(self, connector: asyncpg.pool.Pool):
         self.connector = connector
 
+    async def create_table(self, statement):
+        status = await self.connector.execute(statement)
+        print(status)
+
     async def add_exerc(self, data):
         await self.connector.execute('''INSERT INTO exercises (user_id, date_train, name, repetitions, weight) VALUES ($1, $2, $3, $4, $5)''',
                                      data['user_id'], data['date_train'], data['name'], int(data['repetitions']), float(data['weight']))
